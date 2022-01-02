@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from account.models import *
 
 
@@ -20,15 +21,15 @@ class MealCategory(models.Model):
     class Meta:
         verbose_name_plural = 'MealCategories'
 
-    BREAKFAST = 'B'
-    LUNCH = 'L'
-    DINNER = 'D'
-    MEAL_CATEGORIES = [
-        (BREAKFAST, 'breakfast'),
-        (LUNCH, 'lunch'),
-        (DINNER, 'dinner')
-    ]
-    name = models.CharField(max_length=1, choices=MEAL_CATEGORIES)
+    class MealCategories(models.TextChoices):
+        BREAKFAST = 'BR', _('Breakfast')
+        LUNCH = 'LU', _('Lunch')
+        DINNER = 'DI', _('Dinner')
+        DRINKS = 'DR', _('Drinks')
+        Appetizer = 'AP', _('Appetizer')
+        Dessert = 'DE', _('Dessert')
+
+    name = models.CharField(max_length=2, choices=MealCategories.choices)
 
     def __str__(self):
         return self.name
@@ -43,7 +44,9 @@ class Branch(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='branches')
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=200)
+    address = models.OneToOneField(Address, on_delete=models.CASCADE)
     city = models.CharField(max_length=50)
+    is_main = models.BooleanField(verbose_name='main branch')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -52,7 +55,7 @@ class Branch(models.Model):
 
 class Food(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='foods')
-    meal_category = models.ManyToManyField(MealCategory, blank=True, related_name='foods')
+    meal_category = models.ManyToManyField(MealCategory, related_name='foods')
     name = models.CharField(max_length=50)
     image = models.ImageField(upload_to='food_images/')
     description = models.CharField(max_length=200)
@@ -73,22 +76,20 @@ class MenuItem(models.Model):
 
 
 class Order(models.Model):
-    ORDERED = 'O'
-    RECORDED = 'R'
-    SENT = 'S'
-    DELIVERED = 'D'
-    ORDER_STATUS = [
-        (ORDERED, 'ordered'),
-        (RECORDED, 'recorded'),
-        (SENT, 'sent'),
-        (DELIVERED, 'delivered')
-    ]
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer')
-    status = models.CharField(max_length=1, choices=ORDER_STATUS)
+
+    class OrderStatus(models.TextChoices):
+        ORDERED = 'O', _('Ordered')
+        RECORDED = 'R', _('Recorded')
+        SENT = 'S', _('Sent')
+        DELIVERED = 'D', _('Delivered')
+
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='orders')
+    status = models.CharField(max_length=1, choices=OrderStatus.choices)
+    customer_address = models.ForeignKey(CustomerAddress, on_delete=models.CASCADE, related_name='orders')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.id
+        return self.customer.first_name
 
 
 class OrderItem(models.Model):
@@ -97,4 +98,4 @@ class OrderItem(models.Model):
     quantity = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.id
+        return self.menu_item.food
