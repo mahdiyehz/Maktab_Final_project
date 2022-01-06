@@ -1,5 +1,5 @@
 from django.contrib import admin
-from account.models import *
+from accounts.models import *
 
 
 @admin.register(Customer)
@@ -15,6 +15,10 @@ class CustomerProxyAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         return Customer.objects.filter(is_staff=False)
 
+    def save_model(self, request, obj, form, change):
+        obj.set_password(form.cleaned_data["password"])
+        obj.save()
+
 
 @admin.register(Staff)
 class StaffProxyAdmin(admin.ModelAdmin):
@@ -27,6 +31,10 @@ class StaffProxyAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         return Staff.objects.filter(is_staff=True, is_superuser=False)
 
+    def save_model(self, request, obj, form, change):
+        obj.set_password(form.cleaned_data["password"])
+        obj.save()
+
 
 @admin.register(Admin)
 class AdminProxyAdmin(admin.ModelAdmin):
@@ -38,7 +46,10 @@ class AdminProxyAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         return Admin.objects.filter(is_superuser=True)
 
+    def save_model(self, request, obj, form, change):
+        obj.set_password(form.cleaned_data["password"])
+        obj.save()
+
 
 admin.site.register(CustomUser)
 admin.site.register(Address)
-admin.site.register(CustomerAddress)

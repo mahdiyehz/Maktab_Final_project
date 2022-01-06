@@ -14,6 +14,7 @@ class Address(models.Model):
 
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True, blank=True)
     device = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
@@ -24,11 +25,11 @@ class Customer(CustomUser):
     class Meta:
         proxy = True
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.id:
             self.is_staff = False
             self.is_superuser = False
-        super().save()
+        return super(Customer, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.username
@@ -40,11 +41,11 @@ class Staff(CustomUser):
         verbose_name = 'Restaurant Manager'
         verbose_name_plural = 'Restaurant Managers'
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.id:
             self.is_staff = True
             self.is_superuser = False
-        super().save()
+        super(Staff, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.username
@@ -56,15 +57,10 @@ class Admin(CustomUser):
         verbose_name = 'Site Admin'
         verbose_name_plural = 'Site Admins'
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.id:
             self.is_superuser = True
-        super().save()
+        super(Admin, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.username
-
-
-class CustomerAddress(models.Model):
-    address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name='user_address')
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='user_address')
