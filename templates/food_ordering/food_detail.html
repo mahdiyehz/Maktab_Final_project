@@ -1,0 +1,45 @@
+{% extends 'food_ordering/base_admin.html' %}
+{% block content %}
+ <section class="tv-paddingT100 tv-bgbanner" id="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="tv-menu">
+                        <div class="col-md-12 col-sm-12 col-xs-12 tv-whitebgclr">
+                            <div class="row">
+                                <div class="col-md-10 col-sm-10 col-xs-10 width-100perc">
+                                    <h1>Food Detail</h1>
+                                    <div class="tv-menu-items">
+
+                                            <div class="tv-menu-item-img">
+                                                <img src="{{ food.image.url }}" alt="food_img" class="img-responsive">
+                                            </div>
+                                            <div class="tv-menu-item-name">
+                                                <h4>{{ food.name }}</h4>
+                                                <br>
+                                                <p>|{{ food.created_jalali }}</p>
+                                                <br><br>
+                                                <h5>{{ food.description }}</h5>
+                                                <span class="tv-menu-item-price">
+                                                    <a href="{% url 'food_edit' food.pk %}">Edit</a> | <a href="{% url 'food_delete' food.pk %}">Delete</a>
+                                                </span>
+                                            </div>
+
+                                    </div>
+                                    <p>Back to <a href="{% url 'food_list' %}">All Foods</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+    </section>
+{% endblock content %}
+
+<div>
+<h2>{{ food.name }}</h2>
+<p>{{ food.created_jalali }}</p>
+<p>{{ food.description }}</p>
+</div>
+<div>
+        <img src="{{food.image}}" alt="" style="height:200px">
+</div>

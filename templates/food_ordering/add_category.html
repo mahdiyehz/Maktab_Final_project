@@ -1,0 +1,16 @@
+{% extends 'food_ordering/base_admin.html' %}
+{%load crispy_forms_tags %}
+{% block content %}
+    <br><br>
+    <br><br>
+    <br><br>
+    <div>
+        <h1>New Category</h1>
+        <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <div class="col-md-6 col-sm-6 col-xs-6 ">
+            {% crispy form %}
+            <button class="btn btn-success ml-2" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

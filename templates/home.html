@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block main_content %}
+        <header id="home">
+            <div class="main-nav">
+                <nav class="navbar navbar-default navbar-fixed-top">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand">
+                                <img class="img-responsive" src="{% static 'images/logo.png' %}" alt="logo">
+                            </a>
+                        </div>
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="scroll"><a href="{% url 'food_list' %}">Admin Panel</a></li>
+                                <li class="scroll"><a href="#">Menu</a></li>
+                                <li class="scroll"><a href="#">Services</a></li>
+                                <li class="scroll"><a href="#">Team</a></li>
+                                <li class="scroll"><a href="#">Blog</a></li>
+                                <li class="scroll"><a href="#">Contact</a></li>
+                                {% if user.is_authenticated %}
+                                <li class="scroll"><a href="{% url 'account_logout' %}">Log Out</a></li>
+                                {% else %}
+                                <li class="scroll"><a href="{% url 'account_login' %}">Log In</a></li>
+                               {% comment %} <li class="scroll"><a href="{% url 'food_list' %}">Admin Panel</a></li>{% endcomment %}
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div><!--/#main-nav-->
+            <div id="home-slider" class="carousel slide carousel-fade" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="item active" style="background-image: url({% static 'images/banner.jpg' %})">
+                        <div class="caption">
+                            <h1>Welcome to <span>FoodOrdering</span></h1>
+                            <p>We serve only the freshest ingredients!</p>
+                        </div>
+                    </div>
+                    <div class="item" style="background-image: url({% static 'images/banner2.jpg' %})">
+                        <div class="caption">
+                            <h1>Welcome to <span>FoodOrdering</span></h1>
+                            <p>We serve only the freshest ingredients!</p>
+                        </div>
+                    </div>
+                    <div class="item" style="background-image: url({% static 'images/banner3.jpg' %})">
+                        <div class="caption">
+                            <h1>Welcome to <span>FoodOrdering</span></h1>
+                            <p>We serve only the freshest ingredients!</p>
+                        </div>
+                    </div>
+                </div>
+                <a class="tv-left-control" href="#home-slider" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+                <a class="tv-right-control" href="#home-slider" data-slide="next"><i class="fa fa-angle-right"></i></a>
+            </div><!--#home-slider-->
+        </header>
+
+{% endblock main_content %}
