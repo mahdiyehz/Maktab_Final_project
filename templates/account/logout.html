@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block main_content %}
+    {%load crispy_forms_tags %}
+<section class="tv-paddingT100 tv-bgbanner">
+    <div class="col-md-12 col-sm-12 col-xs-12 tv-whitebgclr">
+        <div class="row">
+            <div class="tv-menu">
+                <div class="col-md-12 col-sm-12 col-xs-12 tv-whitebgclr">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-6 width-100perc">
+
+                            <h2>Log Out</h2>
+                            <br>
+                            <p>Are you sure you want to log out?</p>
+                            <form method="post" action="{% url 'account_logout' %}">
+                              {% csrf_token %}
+                                {{ form.as_p }}
+                              <button class="btn btn-danger ml-2" type="submit">Log Out</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main_content %}
+
+
