@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{%load crispy_forms_tags %}
+{% block content %}
+ <section class="tv-paddingT100 tv-bgbanner" id="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="tv-menu">
+                        <div class="col-md-12 col-sm-12 col-xs-12 tv-whitebgclr">
+                            <div class="row">
+                                <div class="col-md-10 col-sm-10 col-xs-10 width-100perc">
+                                    <h1>Edit Menu Item</h1>
+                                    <br>
+                                    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+                                    <div class="col-md-10 col-sm-10 col-xs-10 ">
+                                    {% crispy form %}
+                                    <button class="btn btn-success ml-2" type="submit">Edit</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+    </section>
+{% endblock content %}
