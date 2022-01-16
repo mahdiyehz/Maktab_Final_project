@@ -1,4 +1,4 @@
-{% extends 'food_ordering/base_admin.html' %}
+{% extends 'base.html' %}
 {%load crispy_forms_tags %}
 {% block content %}
  <section class="tv-paddingT100 tv-bgbanner" id="menu">
@@ -24,17 +24,3 @@
              </div>
     </section>
 {% endblock content %}
-
-
-<br><br>
-    <br><br>
-    <br><br>
-    <div>
-        <h1>Food Edit</h1>
-        <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-            <div class="col-md-6 col-sm-6 col-xs-6 ">
-            {% crispy form %}
-            <button class="btn btn-success ml-2" type="submit">Edit</button>
-            </div>
-        </form>
-    </div>

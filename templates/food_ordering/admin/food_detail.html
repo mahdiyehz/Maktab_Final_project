@@ -1,4 +1,4 @@
-{% extends 'food_ordering/base_admin.html' %}
+{% extends 'base.html' %}
 {% block content %}
  <section class="tv-paddingT100 tv-bgbanner" id="menu">
             <div class="container">
@@ -19,6 +19,7 @@
                                                 <p>|{{ food.created_jalali }}</p>
                                                 <br><br>
                                                 <h5>{{ food.description }}</h5>
+                                                {% if user.is_superuser %}
                                                 <span class="tv-menu-item-price">
                                                     <a href="{% url 'food_edit' food.pk %}">Edit</a> | <a href="{% url 'food_delete' food.pk %}">Delete</a>
                                                 </span>
@@ -27,6 +28,7 @@
                                     </div>
                                     <p>Back to <a href="{% url 'food_list' %}">All Foods</a>.</p>
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -34,12 +36,3 @@
              </div>
     </section>
 {% endblock content %}
-
-<div>
-<h2>{{ food.name }}</h2>
-<p>{{ food.created_jalali }}</p>
-<p>{{ food.description }}</p>
-</div>
-<div>
-        <img src="{{food.image}}" alt="" style="height:200px">
-</div>

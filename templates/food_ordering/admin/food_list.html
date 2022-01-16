@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <section class="tv-paddingT100 tv-bgbanner" id="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="tv-menu">
+                        <div class="col-md-12 col-sm-12 col-xs-12 tv-whitebgclr">
+                            <div class="tab-content">
+                                <div id="breakfast" class="tab-pane fade active in">
+                                    <div class="row">
+                                        {% for food in food_list %}
+                                        <div class="col-md-4 col-sm-4 col-xs-6 width-100perc">
+                                                <div class="tv-menu-items">
+                                                    <div class="tv-menu-item-img">
+                                                        <img src="{{ food.image.url }}" alt="food_img" class="img-responsive">
+                                                    </div>
+                                                    <div class="tv-menu-item-name">
+
+                                                        <h4><a href="{% url 'food_detail' food.pk %}">{{ food.name }}</a></h4>
+                                                        <span class="tv-menu-item-price">
+                                                            <a href="{% url 'food_edit' food.pk %}">Edit</a> | <a href="{% url 'food_delete' food.pk %}">Delete</a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </section>
+
+
+{% endblock content %}
