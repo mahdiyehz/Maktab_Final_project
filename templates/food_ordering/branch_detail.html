@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+     <section class="tv-paddingT100 tv-bgbanner" id="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="tv-menu">
+                        <div class="col-md-12 col-sm-12 col-xs-12 tv-whitebgclr">
+                            <div class="row">
+                                <div class="col-md-10 col-sm-10 col-xs-10 width-100perc">
+                                    <h1>Branch Detail</h1>
+                                    <br>
+                                    <div class="tv-menu-items">
+                                        <div class="tv-menu-item-name">
+                                            <h2 style="text-transform: uppercase">{{ branch.name }}</h2>
+                                            <br>
+                                            <h5>By:{{ branch.manager.username }} |{{ branch.created_jalali }}</h5>
+                                            <br><br>
+                                            <h4>Restaurant:{{ branch.restaurant }}</h4>
+                                            <br><br>
+                                            <h4>Category: {{ branch.category.name }}</h4>
+                                            <br><br>
+                                            <h4>Address: {{ branch.city }} | {{ branch.address }}</h4>
+                                            <br><br>
+                                            <h4>Description{{ branch.description }}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+    </section>
+{% endblock content %}
