@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+    {%load crispy_forms_tags %}
+<section class="tv-paddingT100 tv-bgbanner">
+    <div class="col-md-12 col-sm-12 col-xs-12 tv-whitebgclr">
+        <div class="row">
+            <div class="tv-menu">
+                <div class="col-md-12 col-sm-12 col-xs-12 tv-whitebgclr">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-6 width-100perc">
+
+                            <h2>Customer Sign Up</h2>
+                            <br>
+                            <form method="post" action="{% url 'customer_signup' %}">
+                                {% csrf_token %}
+                            <div class="bg-danger"><h4>Customer information</h4></div>
+                            <br>
+                                <div id="div_id_email" class="form-group">
+                                    <label for="id_email" class=" requiredField">E-mail<span class="asteriskField">*</span> </label>
+                                    <div class="">
+                                        <input type="email" name="email" placeholder="E-mail address" autocomplete="email" class="textinput textInput form-control" required="" id="id_email">
+                                    </div>
+                                </div>
+                                <div id="div_id_password1" class="form-group">
+                                    <label for="id_password1" class=" requiredField">Password<span class="asteriskField">*</span> </label>
+                                    <div class="">
+                                        <input type="password" name="password1" placeholder="Password" autocomplete="new-password" class="textinput textInput form-control" required="" id="id_password1">
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div class="bg-danger"><h4>Address</h4></div>
+                                <br>
+                                <div id="div_id_city" class="form-group">
+                                    <label for="id_city" class=" requiredField">City<span class="asteriskField">*</span> </label>
+                                    <div class="">
+                                        <input type="text" name="city" class="textinput textInput form-control" required="" id="id_city">
+                                    </div>
+                                </div>
+                                <div id="div_id_street" class="form-group">
+                                    <label for="id_street" class=" requiredField">Street<span class="asteriskField">*</span> </label>
+                                    <div class="">
+                                        <input type="text" name="street" class="textinput textInput form-control" required="" id="id_street">
+                                    </div>
+                                </div>
+                                <div id="div_id_number" class="form-group">
+                                    <label for="id_number" class=" requiredField">Number<span class="asteriskField">*</span> </label>
+                                    <div class="">
+                                        <input type="text" name="number" class="textinput textInput form-control" required="" id="id_number">
+                                    </div>
+                                </div>
+
+                              <button class="btn btn-success ml-2" type="submit">Sign Up</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block content %}
+    {%load crispy_forms_tags %}
+<section class="tv-paddingT100 tv-bgbanner">
+    <div class="col-md-12 col-sm-12 col-xs-12 tv-whitebgclr">
+        <div class="row">
+            <div class="tv-menu">
+                <div class="col-md-12 col-sm-12 col-xs-12 tv-whitebgclr">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-6 width-100perc">
+
+                            <h2>Manager Sign Up</h2>
+                            <br>
+                            <form method="post" action="{% url 'manager_signup' %}">
+                                {% csrf_token %}
+                                <div class="bg-danger"><h4>Manager information</h4></div>
+                                <br>
+                                <div id="div_id_email" class="form-group">
+                                    <label for="id_email" class=" requiredField">E-mail<span class="asteriskField">*</span></label>
+                                    <div class="">
+                                        <input type="email" name="email" placeholder="E-mail address" autocomplete="email" class="textinput textInput form-control" required="" id="id_email">
+                                    </div>
+                                </div>
+                                <div id="div_id_password1" class="form-group">
+                                    <label for="id_password1" class=" requiredField">Password<span class="asteriskField">*</span> </label>
+                                    <div class="">
+                                        <input type="password" name="password1" placeholder="Password" autocomplete="new-password" class="textinput textInput form-control" required="" id="id_password1">
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div class="bg-danger"><h4>Branch information</h4></div>
+                                <br>
+                                <div id="div_id_restaurant" class="form-group">
+                                    <label for="id_restaurant" class=" requiredField">Restaurant<span class="asteriskField">*</span> </label>
+                                    <div class="">
+                                        <input type="text" name="restaurant" class="textinput textInput form-control" required="" id="id_restaurant">
+                                    </div>
+                                </div>
+                                <div id="div_id_category" class="form-group">
+                                    <label for="id_category" class=" requiredField">Category<span class="asteriskField">*</span> </label>
+                                    <div class="">
+                                        <input type="text" name="category" class="textinput textInput form-control" required="" id="id_category">
+                                    </div>
+                                </div>
+                                <div id="div_id_name" class="form-group">
+                                    <label for="id_name" class=" requiredField">Name<span class="asteriskField">*</span> </label>
+                                    <div class=""> <input type="text" name="name" class="textinput textInput form-control" required="" id="id_name">
+                                    </div>
+                                </div>
+                                <div id="div_id_description" class="form-group">
+                                    <label for="id_description" class=" requiredField">Description<span class="asteriskField">*</span> </label>
+                                    <div class="">
+                                        <textarea  name="description" class="textinput textInput form-control" required="" id="id_description"></textarea>
+                                    </div>
+                                </div>
+                                <div id="div_id_city" class="form-group">
+                                    <label for="id_city" class=" requiredField">City<span class="asteriskField">*</span> </label>
+                                    <div class=""> <input type="text" name="city" class="textinput textInput form-control" required="" id="id_city">
+                                    </div>
+                                </div>
+                                <div id="div_id_address" class="form-group">
+                                    <label for="id_address" class=" requiredField">Address<span class="asteriskField">*</span> </label>
+                                    <div class=""> <input type="text" name="address" class="textinput textInput form-control" required="" id="id_address">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div id="div_id_is_main" class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="is_main" class="checkboxinput custom-control-input" id="id_is_main">
+                                        <label for="id_is_main" class="custom-control-label">main branch</label>
+                                    </div>
+                                </div>
+                              <button class="btn btn-success ml-2" type="submit">sign up</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+

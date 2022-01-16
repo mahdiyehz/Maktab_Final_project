@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block main_content %}
+{% block content %}
     {%load crispy_forms_tags %}
 <section class="tv-paddingT100 tv-bgbanner">
     <div class="col-md-12 col-sm-12 col-xs-12 tv-whitebgclr">
@@ -28,7 +28,9 @@
 
                               <button class="btn btn-success ml-2" type="submit">Log In</button>
                             </form>
-
+                            <br>
+{#                            <button class="btn btn-warning"><a href="{% url 'manager_signup' %}">Manager Sign Up</a></button> |#}
+{#                            <button class="btn btn-warning"><a href="{% url 'customer_signup' %}">Customer Sign Up</a></button>#}
                         </div>
                     </div>
                 </div>
@@ -36,4 +38,4 @@
         </div>
     </div>
 </section>
-{% endblock main_content %}
+{% endblock content %}

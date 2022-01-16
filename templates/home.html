@@ -1,64 +1,103 @@
 {% extends 'base.html' %}
 {% load static %}
-    {% block main_content %}
-        <header id="home">
-            <div class="main-nav">
-                <nav class="navbar navbar-default navbar-fixed-top">
-                    <div class="container">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            <a class="navbar-brand">
-                                <img class="img-responsive" src="{% static 'images/logo.png' %}" alt="logo">
-                            </a>
+    {% block content %}
+
+
+        <section class="tv-paddingT100 tv-bgbanner" id="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="search-box">
+                        <div class="">
+                            <form action="{% url 'search' %}"  method="get" class="input-group input-group-lg">
+                            <input type="text" name="text" id="SearchInput" maxlength="40" class="form-control" placeholder="search...">
+                            <span class="input-group-btn">
+                                <button id="SearchBtn" class="btn btn-default" data-loading-text="<i class=fa fa-spinner fa-spin fa-lg></i>" type="submit"><i class="fa fa-search fa-lg text-g2"></i></button>
+                            </span>
+                            </form>
+                            <div id="linksSection">
+
                         </div>
-                        <div class="collapse navbar-collapse">
-                            <ul class="nav navbar-nav navbar-right">
-                                <li class="scroll"><a href="{% url 'food_list' %}">Admin Panel</a></li>
-                                <li class="scroll"><a href="#">Menu</a></li>
-                                <li class="scroll"><a href="#">Services</a></li>
-                                <li class="scroll"><a href="#">Team</a></li>
-                                <li class="scroll"><a href="#">Blog</a></li>
-                                <li class="scroll"><a href="#">Contact</a></li>
-                                {% if user.is_authenticated %}
-                                <li class="scroll"><a href="{% url 'account_logout' %}">Log Out</a></li>
-                                {% else %}
-                                <li class="scroll"><a href="{% url 'account_login' %}">Log In</a></li>
-                               {% comment %} <li class="scroll"><a href="{% url 'food_list' %}">Admin Panel</a></li>{% endcomment %}
-                                {% endif %}
-                            </ul>
                         </div>
+
                     </div>
-                </nav>
-            </div><!--/#main-nav-->
-            <div id="home-slider" class="carousel slide carousel-fade" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="item active" style="background-image: url({% static 'images/banner.jpg' %})">
-                        <div class="caption">
-                            <h1>Welcome to <span>FoodOrdering</span></h1>
-                            <p>We serve only the freshest ingredients!</p>
-                        </div>
+                    <br>
+                    <div class="tv-block-heading">
+                        <h2>FOODS</h2>
                     </div>
-                    <div class="item" style="background-image: url({% static 'images/banner2.jpg' %})">
-                        <div class="caption">
-                            <h1>Welcome to <span>FoodOrdering</span></h1>
-                            <p>We serve only the freshest ingredients!</p>
-                        </div>
-                    </div>
-                    <div class="item" style="background-image: url({% static 'images/banner3.jpg' %})">
-                        <div class="caption">
-                            <h1>Welcome to <span>FoodOrdering</span></h1>
-                            <p>We serve only the freshest ingredients!</p>
+                </div>
+                <div class="row">
+                    <div class="tv-menu">
+                        <div class="col-md-12 col-sm-12 col-xs-12 tv-whitebgclr">
+                            <div class="tab-content">
+                                <div id="breakfast" class="tab-pane fade active in">
+                                    <div class="row">
+                                        {% if items %}
+                                            {% for item in items %}
+                                            <div class="col-md-4 col-sm-4 col-xs-6 width-100perc">
+                                                <div class="tv-menu-items">
+                                                    <div class="tv-menu-item-img">
+                                                        <img src="{{ item.food.image.url }}" alt="menu-item" class="img-responsive">
+                                                    </div>
+                                                    <div class="tv-menu-item-name">
+                                                        <h4> {% if user.is_superuser %}<a href="{% url 'food_detail' item.food.pk %}">{% endif %}{{ item.food.name }}</a></h4>
+                                                        <br>
+                                                        <h4>{% if user.is_superuser %}<a href="{% url 'branch_detail' item.branch.pk %}">{% endif %}{{ item.branch.name }}</a></h4>
+                                                        <br><br>
+                                                        <span class="tv-menu-item-price">
+                                                            <ins>{{ item.price }} T</ins>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        {% else %}
+                                             {% for item in menu_item %}
+                                            <div class="col-md-4 col-sm-4 col-xs-6 width-100perc">
+                                                <div class="tv-menu-items">
+                                                    <div class="tv-menu-item-img">
+                                                        <img src="{{ item.food.image.url }}" alt="menu-item" class="img-responsive">
+                                                    </div>
+                                                    <div class="tv-menu-item-name">
+                                                        <h4><a href="{% url 'food_detail' item.food.pk %}">{{ item.food.name }}</a></h4>
+                                                        <br>
+                                                        <h4><a href="{% url 'branch_detail' item.branch.pk %}">{{ item.branch.name }}</a></h4>
+                                                        <br><br>
+{#                                                        <form action="" method="post"></form>#}
+{#                                                            {% csrf_token %}#}
+{#                                                        <div class="form-group">#}
+{#                                                            <label for="email"><h5 style="text-transform: uppercase">Quantity</h5></label>#}
+{#                                                            <input type="number" id="email" value="1" class="form-control placeholder-fix" placeholder="Quantity" required>#}
+{#                                                        </div>#}
+                                                        <button class="btn btn-warning"><h3>Add To Cart</h3></button>
+                                                        <span class="tv-menu-item-price">
+                                                            <ins>{{ item.price }} T</ins>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <a class="tv-left-control" href="#home-slider" data-slide="prev"><i class="fa fa-angle-left"></i></a>
-                <a class="tv-right-control" href="#home-slider" data-slide="next"><i class="fa fa-angle-right"></i></a>
-            </div><!--#home-slider-->
-        </header>
+            </div>
+        </section>
 
-{% endblock main_content %}
+{% endblock content %}
+{% block script %}
+    <script type="text/javascript">
+        $( document ).ready( function() {
+            console.log('______')
+            $( '#SearchInput' ).keyup( function() {
+                q = $( '#SearchInput' ).val();
+                if(q.length > 0)
+                   $( '#searchResult' ).html( '&nbsp;' ).load( '{% url 'search' %}?q=' + q );
+                else
+                   $( '#searchResult' ).html( '&nbsp;' )
+            });
+        });
+    </script>
+{% endblock %}

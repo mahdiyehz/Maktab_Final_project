@@ -2,19 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
-class Address(models.Model):
-    city = models.CharField(max_length=50)
-    street = models.CharField(max_length=50)
-    number = models.PositiveIntegerField()
-    is_main = models.BooleanField(verbose_name='main address')
-
-    def __str__(self):
-        return self.city + '_' + self.street
-
-
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True, blank=True)
     device = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
@@ -32,7 +21,7 @@ class Customer(CustomUser):
         return super(Customer, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.username
+        return self.email
 
 
 class Staff(CustomUser):
@@ -64,3 +53,14 @@ class Admin(CustomUser):
 
     def __str__(self):
         return self.username
+
+
+class Address(models.Model):
+    city = models.CharField(max_length=50)
+    street = models.CharField(max_length=50)
+    number = models.PositiveIntegerField()
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='address')
+    is_main = models.BooleanField(verbose_name='main address', default=False)
+
+    def __str__(self):
+        return self.city + '_' + self.street
