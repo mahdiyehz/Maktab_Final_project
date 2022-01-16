@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <section class="tv-paddingT100 tv-bgbanner" id="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="tv-menu">
+                        <div class="col-md-12 col-sm-12 col-xs-12 tv-whitebgclr">
+                            <div class="tab-content">
+                                <div id="breakfast" class="tab-pane fade active in">
+                                    <table class="table table-striped mt-4">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Number</th>
+                                            <th scope="col">address</th>
+                                            <th scope="col">+</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for address in address_list %}
+                                        <tr>
+                                            <th scope="row">{{forloop.counter}}</th>
+                                            <th >{{ address.city }} | {{ address.street }} | {{ address.number }}</th>
+                                            <th >{{ customer.address.is_main }}</th>
+                                            <th>
+                                                <a href="{% url 'address_edit' address.pk %}" class="btn btn-warning">Edit</a>
+                                                <a href="{% url 'address_delete' address.pk %}" class="btn btn-danger">Delete</a>
+                                            </th>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </section>
+
+
+{% endblock content %}
