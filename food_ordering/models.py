@@ -6,7 +6,10 @@ from accounts.models import *
 
 
 class Restaurant(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Category(models.Model):
@@ -42,11 +45,11 @@ class Branch(models.Model):
         verbose_name_plural = 'Branches'
 
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='branches')
-    manager = models.OneToOneField(Staff, on_delete=models.CASCADE, related_name='branches')
+    manager = models.OneToOneField(Staff, on_delete=models.CASCADE, related_name='branch')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='branches')
     name = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=200)
-    address = models.OneToOneField(Address, on_delete=models.CASCADE)
+    address = models.CharField(max_length=200)
     city = models.CharField(max_length=50)
     is_main = models.BooleanField(verbose_name='main branch')
     created_at = models.DateTimeField(auto_now_add=True)
@@ -82,18 +85,18 @@ class MenuItem(models.Model):
     quantity = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.food
+        return self.food.name
 
 
 class Order(models.Model):
 
     class OrderStatus(models.TextChoices):
-        ORDERED = 'O', _('Ordered')
-        RECORDED = 'R', _('Recorded')
-        SENT = 'S', _('Sent')
-        DELIVERED = 'D', _('Delivered')
+        ORDERED = 'ordered', _('Ordered')
+        RECORDED = 'recorded', _('Recorded')
+        SENT = 'sent', _('Sent')
+        DELIVERED = 'delivered', _('Delivered')
 
-    status = models.CharField(max_length=1, choices=OrderStatus.choices)
+    status = models.CharField(max_length=10, choices=OrderStatus.choices)
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, related_name='orders', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -102,14 +105,13 @@ class Order(models.Model):
         return jdatetime.datetime.fromgregorian(datetime=self.created_at).strftime('%Y-%m-%d %H:%M:%S')
 
     def __str__(self):
-        return self.customer.first_name
+        return self.customer.username
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_item')
-    menu_item = models.ManyToManyField(MenuItem, related_name='order_item')
-    price = models.PositiveIntegerField()
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, related_name='order_item', null=True)
+    menu_item = models.ForeignKey(MenuItem, on_delete=models.SET_NULL, related_name='order_item', null=True)
     quantity = models.PositiveIntegerField(validators=[MinValueValidator(1)])
 
     def __str__(self):
-        return self.menu_item.food
+        return self.menu_item.food.name
