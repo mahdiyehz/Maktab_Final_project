@@ -18,7 +18,7 @@ class CustomerRegistrationForm(SignupForm):
         number = self.cleaned_data.pop('number')
 
         user = super().save(request)
-        Address.objects.create(city=city, street=street, number=number, customer=user)
+        Address.objects.create(city=city, street=street, number=number, customer=user, is_main=True)
         return user
 
     def clean_number(self):
