@@ -107,6 +107,14 @@ class Order(models.Model):
     def __str__(self):
         return self.customer.username
 
+    @property
+    def get_cart_total(self):
+        orderitems = OrderItem.objects.filter(order=self.id)
+        if orderitems:
+            return sum([item.get_total_price for item in orderitems])
+        else:
+            return 0
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, related_name='order_item', null=True)
@@ -115,3 +123,9 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return self.menu_item.food.name
+
+    @property
+    def get_total_price(self):
+        menu_price = MenuItem.objects.filter(id=self.menu_item.id).values_list("price")[0][0]
+        print('price:', menu_price)
+        return menu_price * self.quantity

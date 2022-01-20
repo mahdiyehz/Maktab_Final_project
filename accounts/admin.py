@@ -9,7 +9,7 @@ class CustomerProxyAdmin(admin.ModelAdmin):
     list_editable = ['username']
     search_fields = ['username', 'email']
     empty_values_display = '___'
-    list_filter = ('email',)
+    # list_filter = ('email',)
     list_per_page = 10
 
     def get_queryset(self, request):
