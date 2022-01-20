@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+     <section class="tv-paddingT100 tv-bgbanner" id="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="tv-menu">
+
+                            <div class="row">
+                                <div class="col-md-10 col-sm-10 col-xs-10 width-100perc">
+                                    <div class="tv-menu-items">
+                                        <div class="tv-menu-item-name">
+                                        <h1>Menu</h1>
+                                            <br>
+                                            {% for item in menu_item %}
+                                                <div class="col-md-4 col-sm-4 col-xs-6 width-100perc">
+                                                <div class="tv-menu-items">
+                                                    <div class="tv-menu-item-img">
+                                                        <img src="{{ item.food.image.url }}" alt="menu-item" class="img-responsive">
+                                                    </div>
+                                                    <div class="tv-menu-item-name">
+                                                        <h4>{{ item.food.name }}</h4>
+                                                        <br>
+                                                        <h4>{{ item.branch.name }}</h4>
+                                                        <br><br>
+                                                        <button class="btn btn-warning"><a href="{% url 'food' item.pk %}"><h3>view</h3></a></button>
+                                                        <span class="tv-menu-item-price">
+                                                            <ins>{{ item.price }} T</ins>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+             </div>
+    </section>
+{% endblock content %}
