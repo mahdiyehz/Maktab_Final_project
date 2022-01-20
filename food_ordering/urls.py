@@ -5,9 +5,11 @@ urlpatterns = [
     # public urls
     path('', MenuItemList.as_view(), name='home'),
     path('search/', searchbar, name='search'),
-    # path('bests/', best_sells, name='bests'),
-    path('branch/<int:pk>/', BranchDetail.as_view(), name='branch_detail'),
-    path('search/<int:pk>/', MenuItemDetail.as_view(), name='item_detail'),
+    path('public_branch_menu/<int:pk>/', PublicBranchMenu.as_view(), name='public_branch_menu'),
+    path('food_order/<int:pk>/', food, name='food'),
+    path('cart/', cart, name='cart'),
+    path("cart/orderitem_delete/<int:pk>/", OrderItemDelete.as_view(), name="orderitem_delete"),
+    path("cart/orderitem_edit/<int:pk>/", OrderItemEdit.as_view(), name="orderitem_edit"),
 
     # admin urls
     path('food_list/', FoodList.as_view(), name='food_list'),
@@ -21,12 +23,13 @@ urlpatterns = [
     # customer urls
     path('customer_order/', CustomerOrderList.as_view(), name='customer_order'),
     path('address/', CustomerAddressList.as_view(), name='address_list'),
+    path('add_address/', CustomerAddressCreate.as_view(), name='add_address'),
     path('address/<int:pk>/address_edit/', CustomerAddressUpdate.as_view(), name='address_edit'),
     path('address/<int:pk>/address_delete/', CustomerAddressDelete.as_view(), name='address_delete'),
 
     # manager urls
     path('add_menuItem/', MenuItemCreate.as_view(), name='add_menuItem'),
-    path('branch_menu/', BranchMenu.as_view(), name='manager_panel'),
+    path('branch_menu/', BranchMenu.as_view(), name='branch_menu'),
     path('edit_menuItem/<int:pk>/', MenuItemUpdate.as_view(), name='edit_menuItem'),
     path('delete_menuItem/<int:pk>/', MenuItemDelete.as_view(), name='delete_menuItem'),
     path('request_list/', BranchOrderList.as_view(), name='request_list'),
