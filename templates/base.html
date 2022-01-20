@@ -36,24 +36,23 @@
                             <ul class="nav navbar-nav navbar-right">
                             {% if user.is_authenticated %}
                                 {% if user.is_superuser %}
-                                    <li class="scroll"><a href="{% url 'food_list' %}">ADMIN PANEL</a></li>
+                                    <li class="scroll"><a href="{% url 'food_list' %}">{{ user.username }} PANEL</a></li>
                                     <li class="scroll"><a href="{% url 'add_food' %}">Add Food</a></li>
                                     <li class="scroll"><a href="{% url 'add_category' %}">Add Category</a></li>
                                 {% elif user.is_staff %}
-                                    <li class="scroll"><a href="{% url 'manager_panel' %}">MANAGER PANEL</a></li>
+                                    <li class="scroll"><a href="{% url 'branch_menu' %}">{{ user.username }} PANEL</a></li>
                                     <li class="scroll"><a href="{% url 'add_menuItem' %}">Add Item</a></li>
                                     <li class="scroll"><a href="{% url 'request_list' %}">Request List</a></li>
 
                                 {% else %}
-                                    <li class="scroll"><a href="{% url 'customer_order' %}">CUSTOMER PANEL</a></li>
-{#                                    <li class="scroll"><a href="{% url 'add_address' %}">Add address</a></li>#}
-                                    <li class="scroll"><a href="{% url 'address_list' %}">Address List</a></li>
+                                    <li class="scroll"><a href="{% url 'cart' %}">Cart</a></li>
+                                    <li class="scroll"><a href="{% url 'customer_order' %}">{{ user.username }} PANEL</a></li>
+                                    <li class="scroll"><a href="{% url 'address_list' %}">Address list</a></li>
                                 {% endif %}
 
                                 <li class="scroll"><a href="{% url 'account_logout' %}">Log Out</a></li>
                             {% else %}
-{#                                <li class="scroll"><a href="{% url 'best_sells' %}">bests</a></li>#}
-{#                                <li class="scroll"><a href="{% url 'home' %}">foods</a></li>#}
+                                <li class="scroll"><a href="{% url 'cart' %}">Cart</a></li>
                                 <li class="scroll"><a href="{% url 'account_login' %}">Log In</a></li>
                                 <li class="scroll"><a href="{% url 'manager_signup' %}">Manager Sign Up</a></li>
                                 <li class="scroll"><a href="{% url 'customer_signup' %}">Customer Sign Up</a></li>
