@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if foods %}
+    <div class="col-md-4 col-sm-12 col-xs-12">
+        {% for item in foods %}
+            <div class="tv-contact-details tv-whitebgclr">
+                <h4><a href="{% url 'home' item.pk %}">{{ item.food.name }}</a></h4>
+                <br>
+                <h4>{{ item.branch.name }}</h4>
+                <hr>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% if branches %}
+    <div class="col-md-4 col-sm-12 col-xs-12">
+        {% for branch in branches %}
+            <div class="tv-contact-details tv-whitebgclr">
+                <h4><a href="{% url 'branch_menu' %}">{{ branch.name }}</a></h4>
+                <hr>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% include 'search_modal' %}
+{% endblock content %}
