@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block content %}
+
+
+        <section class="tv-paddingT100 tv-bgbanner" id="menu">
+            <div class="container">
+                <div class="row">
+                <div class="tv-block-heading">
+                        <h2>Cart</h2>
+                    </div>
+                    <div class="tv-menu">
+                        <div class="col-md-12 col-sm-12 col-xs-12 tv-whitebgclr">
+                            <div class="tab-content">
+                                <div id="breakfast" class="tab-pane fade active in">
+
+                                            <div class="col-md-4 col-sm-4 col-xs-6 width-100perc">
+                                                {% if user.is_authenticated %}
+                                                    {% if order.order_item.all %}
+                                                    <form method = "POST">
+                                                    {% csrf_token %}
+                                                    <p><label for="id_food_category"> choose Address:</label> <select name="customer_address" class="form-control" required="" id="id_food_category">
+                                                        {% for address in  addresses %}
+                                                        <option  >{{address.pk}} | {{address.city}} | {{address.street}} | {{address.number}}</option>
+                                                      {% endfor %}
+                                                    </select></p>
+
+                                                        <button type="submit" class="btn btn-success">Checkout</button>
+                                                    {%endif%}
+                                                    </form>
+                                                {% else %}
+                                                <a href="{% url 'account_login' %}" class="btn btn-success">Login</a>
+                                                {% endif %}
+                                                {% if massage %}
+                                                <p>{{massage}}</p>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 col-xs-6 width-100perc">
+                                                {% if order.order_item.all %}
+                                                    <h2>Total Price: {{ order.get_cart_total }}</h2>
+                                                    <hr>
+                                                    {% for orderitem in order.order_item.all %}
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <img style="border:1px solid #888; width:200px ;height:200px;" src="{{orderitem.menu_item.food.image.url}}">
+                                                            </div>
+
+                                                            <div style="padding:50px" class="col-lg-6">
+
+                                                                <h3>{{orderitem.menu_item.food.name}}</h3>
+                                                                <hr>
+                                                                <h4>Total Item Price: {{orderitem.get_total_price}}</h4>
+                                                                <h4>Quantity: {{orderitem.quantity}}</h4>
+
+                                                                <a href="{% url 'orderitem_delete' orderitem.pk %}" class="btn btn-danger">DELET</a>
+                                                                <a href="{% url 'orderitem_edit' orderitem.pk %}" class="btn btn-warning">Edit</a>
+
+
+
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                    {% endfor %}
+                                                        {% for orderitem in order.orderitem_set.all %}
+                                                            {% if forloop.counter0 == 0 %}
+                                                            <a href="{% url 'public_branch_menu' orderitem.menu_item.pk %}" class="btn btn-secondary">Back To Menu</a>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+{% endblock content %}

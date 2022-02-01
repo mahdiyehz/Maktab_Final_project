@@ -7,13 +7,14 @@
                     <div class="tv-menu">
                         <div class="col-md-12 col-sm-12 col-xs-12 tv-whitebgclr">
                             <div class="tab-content">
+                            <button class="btn btn-success"><a href="{% url 'add_address' %}">Add new address</a></button>
+                                <br>
                                 <div id="breakfast" class="tab-pane fade active in">
                                     <table class="table table-striped mt-4">
                                     <thead>
                                         <tr>
                                             <th scope="col">Number</th>
                                             <th scope="col">address</th>
-                                            <th scope="col">+</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -22,7 +23,7 @@
                                         <tr>
                                             <th scope="row">{{forloop.counter}}</th>
                                             <th >{{ address.city }} | {{ address.street }} | {{ address.number }}</th>
-                                            <th >{{ customer.address.is_main }}</th>
+
                                             <th>
                                                 <a href="{% url 'address_edit' address.pk %}" class="btn btn-warning">Edit</a>
                                                 <a href="{% url 'address_delete' address.pk %}" class="btn btn-danger">Delete</a>

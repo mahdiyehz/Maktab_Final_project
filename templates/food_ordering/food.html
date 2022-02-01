@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+    {% block content %}
+
+
+        <section class="tv-paddingT100 tv-bgbanner" id="menu">
+            <div class="container">
+                <div class="row">
+                    <div class="tv-menu">
+                        <div class="col-md-12 col-sm-12 col-xs-12 tv-whitebgclr">
+                            <div class="tab-content">
+                                <div id="breakfast" class="tab-pane fade active in">
+                                    <div class="row">
+                                            <div class="col-md-4 col-sm-4 col-xs-6 width-100perc">
+                                                <div class="tv-menu-items">
+                                                    <div class="tv-menu-item-img">
+                                                        <img src="{{ item.food.image.url }}" alt="menu-item" class="img-responsive">
+                                                    </div>
+                                                    <div class="tv-menu-item-name">
+                                                        <h4>{{ item.food.name }}</h4>
+                                                        <br>
+                                                        <h4>{{ item.branch.name }}</h4>
+                                                        <br><br>
+                                                        <form action="{% url 'food' item.id %}" method="post">
+                                                            {% csrf_token %}
+                                                        <div class="form-group">
+                                                            <label for="quantity"><h5 style="text-transform: uppercase">quantity</h5></label>
+                                                            <input type="number" name="quantity" id="quantity" value="1" class="form-control placeholder-fix" placeholder="Quantity" required>
+                                                        </div>
+                                                        <button class="btn btn-warning" type="submit"><h3>Add To Cart</h3></button>
+                                                        </form>
+                                                        <span class="tv-menu-item-price">
+                                                            <ins>{{ item.price }} T</ins>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+{% endblock content %}

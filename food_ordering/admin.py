@@ -2,8 +2,13 @@ from django.contrib import admin
 from food_ordering.models import *
 
 
+class MenuItemInline(admin.TabularInline):
+    model = MenuItem
+
+
 @admin.register(Branch)
 class BranchAdmin(admin.ModelAdmin):
+    inlines = [MenuItemInline]
     list_display = ['restaurant', 'manager', 'category', 'name', 'city', 'description']
     list_display_links = ['name']
     list_editable = ['description']

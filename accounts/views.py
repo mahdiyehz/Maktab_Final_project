@@ -8,7 +8,7 @@ def login_success(request):
     if request.user.is_superuser:
         return redirect("food_list")
     elif request.user.is_staff:
-        return redirect('manager_panel')  # todo: in next phase edit to manager_panel
+        return redirect('branch_menu')
     else:
         return redirect("home")
 
